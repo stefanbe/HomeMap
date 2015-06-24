@@ -11,6 +11,8 @@
 !KML.min.js
 !plugin.css
 !LICENSE
+!esri-leaflet-basemaps-src.js
+!Google.js
 
 */
 !lang/

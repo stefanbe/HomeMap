@@ -185,8 +185,7 @@ class HomeMap extends Plugin {
             "type" => "checkbox",
             "description" => ''
         );
-        $config['--template~~'] = '<b>'.$this->lang->getLanguageValue("google").'</b> '
-            .$this->lang->getLanguageValue("info")
+        $config['--template~~'] = $this->lang->getLanguageValue("info")
             .'<ul style="list-style-type:none;padding-left:1.2em;"><li style="padding-top:.5em;">{usegooglesat_checkbox} <label for="'.$this->pluginName.'-usegooglesat">'.$this->lang->getLanguageValue("sat").'</label></li>'
             .'<li style="padding-top:.5em;">{usegoogleroad_checkbox} <label for="'.$this->pluginName.'-usegoogleroad">'.$this->lang->getLanguageValue("road").'</label></li><ul>';
         return $config;
@@ -207,7 +206,7 @@ class HomeMap extends Plugin {
 
         return array(
             // Plugin-Name
-            "<b>".$this->pluginName."</b> Revision: 3",
+            "<b>".$this->pluginName."</b> ".$this->lang->getLanguageValue("revision","4"),
             // CMS-Version
             "2.0",
             // Kurzbeschreibung

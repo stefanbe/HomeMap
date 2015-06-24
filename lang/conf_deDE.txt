@@ -1,7 +1,4 @@
-tmp = Die Karten kommen von OSM (Strassen) und Esri (Satellite) 
-
-
-google = Google
-info   = (volgende Bilder und/oder Karten können verwendet werden)
-sat    = Satelliten Bilder
-road   = Strassen Karten
+info     = Es werden die Karten von OSM (Strassen) und Esri (Satellite) Benutzt. Für Google können sie hier einfach Ausgewält werden.
+sat      = Satellite
+road     = Strassen
+revision = Revision: {PARAM1}

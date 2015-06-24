@@ -66,7 +66,6 @@ class HomeMap extends Plugin {
                 $this->para[$key] = $val;
             } elseif($val === "openrouteservice" or $val === "openstreetmap" or $val === "layers" or $val === "satellite" or $val === "full" or $val === "openinfo" or $val === "scale") {
                 $this->para[$val] = true;
-#            } elseif(strtolower(substr($val,-4)) === ".kml" or strtolower(substr($val,-4)) === ".gpx") {
             } elseif(".kml" === ($tmp = strtolower(substr($val,-4)))
                     or ".gpx" === ($tmp = strtolower(substr($val,-4)))
                     or ".icon" === ($tmp = ".".$key)) {
@@ -111,16 +110,10 @@ class HomeMap extends Plugin {
             if($this->para["full"])
                 $syntax->insert_in_head('<script type="text/javascript" src="'.$this->PLUGIN_SELF_URL.'Leaflet.fullscreen.min.js"></script>');
 
-
-#$syntax->insert_in_head('<script type="text/javascript" src="'.$this->PLUGIN_SELF_URL.'esri-leaflet-1.0.0-rc.7/dist/esri-leaflet.js"></script>');
-#<a href="esri-leaflet-1.0.0-rc.7/dist/builds/basemaps/esri-leaflet-basemaps-src.js"></a>
-#<script src="//cdn.jsdelivr.net/leaflet.esri/latest/esri-leaflet.js"></script>
-#<a href="esri-leaflet-1.0.0-rc.7/dist/esri-leaflet.js"></a>
             if(!$this->useGoogle['sat'] and ($this->para["layers"] or $this->para["satellite"])) {
                 $syntax->insert_in_head('<script type="text/javascript" src="'.$this->PLUGIN_SELF_URL.'esri-leaflet-basemaps.js"></script>');
             }
             if($this->useGoogle['road'] or ($this->useGoogle['sat'] and ($this->para["layers"] or $this->para["satellite"]))) {
-# 3.exp 3.2
                 $syntax->insert_in_head('<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;signed_in=false&amp;language='.$la.'&amp;sensor=false"></script>');
                 $syntax->insert_in_head('<script type="text/javascript" src="'.$this->PLUGIN_SELF_URL.'Google.min.js"></script>');
             }
@@ -131,8 +124,6 @@ class HomeMap extends Plugin {
             if($this->para["gpx"])
                 $syntax->insert_in_head('<script type="text/javascript" src="'.$this->PLUGIN_SELF_URL.'GPX.min.js"></script>');
 
-#$script .= 'console.log("out");console.log(map'.$map.'.options.maxZoom);';
-
             return '<div class="map_warp"><div id="map'.$map.'" class="map" style="height:'.$this->para["height"].';"></div><script type="text/javascript">/*<![CDATA[*/'.$script.'/*]]>*/</script></div>';
         }
         return NULL;
@@ -142,14 +133,9 @@ class HomeMap extends Plugin {
         return (($this->useGoogle['road']) 
                 ? 'var road'.$map.' = new L.Google("ROADMAP");' 
                 : 'var road'.$map.' = new L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {attribution: \'&copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap<\/a> contributors\'});')
-# ROADMAP
-# http://korona.geog.uni-heidelberg.de:8003/tms_h.ashx?x={z}&y={x}&z={y}
-
             .(($this->para["layers"] or $this->para["satellite"]) 
                 ? ($this->useGoogle['sat']) 
                     ? 'var sat'.$map.' = new L.Google("HYBRID");' 
-#                    : 'var sat'.$map.' = L.esri.basemapLayer("Streets");'# Topographic Streets
-#                    : 'var sat'.$map.' = new L.layerGroup([L.esri.basemapLayer("Imagery"),L.tileLayer("http://korona.geog.uni-heidelberg.de:8003/tms_h.ashx?x={x}&y={y}&z={z}", {attribution: \'&copy; <a href="http://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap<\/a> contributors\'})]);'
                     : 'var sat'.$map.' = new L.layerGroup([L.esri.basemapLayer("Imagery"),L.esri.basemapLayer("ImageryTransportation",{minZoom:6}),L.esri.basemapLayer("ImageryLabels")]);'
                 : '')
 
@@ -161,13 +147,7 @@ class HomeMap extends Plugin {
 
             .'map'.$map.'.addLayer('.(($this->para["satellite"]) ? 'sat'.$map : 'road'.$map).');';
     }
-/*
-http://otile1.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.jpg
-var layer = L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpeg', {
-            attribution: 'Tiles by <a href="http://www.mapquest.com/">MapQuest</a> &mdash; Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
-            subdomains: '1234'
-        });*/
-# "openinfo"
+
     private function getLatLong($map) {
         return 'var map'.$map.' = L.map("map'.$map.'").setView(['.$this->para["lat"].', '.$this->para["long"].'], '.$this->para["zoom"].');'
             .$this->getTileLayer($map)
@@ -184,16 +164,16 @@ var layer = L.tileLayer('http://otile{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.j
         return 'var map'.$map.' = L.map("map'.$map.'");'
             .$this->getTileLayer($map)
             .'var ext'.$map.' = new L.KML("'.$this->para["kml"].'", {async: true}).on("loaded", function(e) {map'.$map.'.fitBounds(e.target.getBounds()); '.(($this->para["openinfo"]) 
-                        ? 'ext'.$map.'.openPopup();'
-                        : '').'if(typeof map'.$map.'.options.maxZoom != "undefined"){if(map'.$map.'.getZoom() > map'.$map.'.options.maxZoom){map'.$map.'.setZoom(map'.$map.'.options.maxZoom);}}}).addTo(map'.$map.');';
+                ? 'ext'.$map.'.openPopup();'
+                : '').'if(typeof map'.$map.'.options.maxZoom != "undefined"){if(map'.$map.'.getZoom() > map'.$map.'.options.maxZoom){map'.$map.'.setZoom(map'.$map.'.options.maxZoom);}}}).addTo(map'.$map.');';
     }
 
     private function getGPX($map) {
         return 'var map'.$map.' = L.map("map'.$map.'");'
             .$this->getTileLayer($map)
             .'var ext'.$map.' = new L.GPX("'.$this->para["gpx"].'", {async: true}).on("loaded", function(e) {map'.$map.'.fitBounds(e.target.getBounds());'.(($this->para["openinfo"]) 
-                        ? 'ext'.$map.'.openPopup();'
-                        : '').'if(typeof map'.$map.'.options.maxZoom != "undefined"){if(map'.$map.'.getZoom() > map'.$map.'.options.maxZoom){map'.$map.'.setZoom(map'.$map.'.options.maxZoom);}}}).addTo(map'.$map.');';
+                ? 'ext'.$map.'.openPopup();'
+                : '').'if(typeof map'.$map.'.options.maxZoom != "undefined"){if(map'.$map.'.getZoom() > map'.$map.'.options.maxZoom){map'.$map.'.setZoom(map'.$map.'.options.maxZoom);}}}).addTo(map'.$map.');';
     }
 
     public function getConfig() {

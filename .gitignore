@@ -1,0 +1,36 @@
+# HomeMap
+*.*
+!.gitignore
+!README.md
+!index.php
+!leaflet.js
+!esri-leaflet-basemaps.js
+!Leaflet.fullscreen.min.js
+!Google.min.js
+!GPX.min.js
+!KML.min.js
+!plugin.css
+
+*/
+!lang/
+!lang/conf_deDE.txt
+!lang/info_deDE.html
+
+!images/
+!images/fullscreen.png
+!images/fullscreen@2x.png
+!images/layers-2x.png
+!images/layers.png
+!images/marker-icon-2x.png
+!images/marker-icon.png
+!images/marker-shadow.png
+
+# algemein
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db

@@ -1,0 +1,57 @@
+{PLUGINNAME} Karte mit eigener Adresse oder Infos aus einer KML oder GPX Datei<br />
+und Route als Link mit vorbelegter Zieladresse
+
+<h3 style="margin-bottom:.2em;">Karte mit Point</h3>
+{{PLUGINNAME}| lat=(Latitude), long=(Longitude) }<br />
+<b style="padding-left:1.5em;">Optional:</b> height, zoom, layers, satellite, full, scale.
+
+<h3 style="margin-bottom:.2em;">Karte mit Point und Text</h3>
+{{PLUGINNAME}| lat=(Latitude), long=(Longitude), infotext=(Text) }<br />
+<b style="padding-left:1.5em;">Optional:</b> height, zoom, layers, satellite, full, scale.
+
+<h3 style="margin-bottom:.2em;">Karte mit eigenen Icon und Text</h3>
+{{PLUGINNAME}| lat=(Latitude), long=(Longitude), infotext=(Text), icon=(Datei oder URL)}<br />
+<b style="padding-left:1.5em;">Optional:</b> height, zoom, layers, satellite, full, scale, iconsize.
+
+<h3 style="margin-bottom:.2em;">Karte mitels KML oder GPX Datei</h3>
+{{PLUGINNAME}| KML oder GPX Datei }<br />
+<b style="padding-left:1.5em;">Optional:</b> height, layers, satellite, full, scale.
+
+<h3 style="margin-bottom:.2em;">Google Route Link</h3>
+{{PLUGINNAME}| google=(Text), linktext=(Text) }
+
+<h3 style="margin-bottom:.2em;">OpenRouteService Route Link</h3>
+{{PLUGINNAME}| openrouteservice, linktext=(Text), lat=(Latitude), long=(Longitude) }<br />
+<b style="padding-left:1.5em;">Optional:</b> zoom.
+
+<h3 style="margin-bottom:.2em;">OpenStreetMap Route Link</h3>
+{{PLUGINNAME}| openstreetmap, linktext=(Text), lat=(Latitude), long=(Longitude) }<br />
+<b style="padding-left:1.5em;">Optional:</b> zoom.
+
+<h3 style="margin-bottom:.2em;">Parameter:</h3>
+<ul style="list-style-type:none;padding-left:2em;">
+    <li><b>lat</b> (Latitude)</li>
+    <li><b>long</b> (Longitude)</li>
+    <li><b>height</b> 350px (Zahl oder Zahl CSS Komform)</li>
+    <li><b>zoom</b> 10 (Zahl)</li>
+    <li><b>infotext</b> (Text, mozilo Syntax ist Erlaubt. Achtung das , oder = oder " müssen Geschützt werden)</li>
+    <li><b>icon</b> mozilo Datei Syntax oder URL mit http(s):// am Anfang</li>
+    <li><b>iconsize</b> (Zahl) Höhe und Breite oder (Zahl)x(Zahl) Höhe x Breite das <b>x</b> ist der Trenner</li>
+    <li><b>linktext</b> (Text, mozilo Syntax ist Erlaubt. Achtung das , oder = oder " müssen Geschützt werden)</li>
+    <li><b>google</b> (Latitude, Longitude oder eine Adresse. Achtung das , und = müssen Geschützt werden)</li>
+    <li><b>openrouteservice</b> (ohne Parameter)</li>
+    <li><b>openstreetmap</b> (ohne Parameter)</li>
+    <li><b>openinfo</b> (ohne Parameter) <b>infotext</b> Öffnen</li>
+    <li><b>satellite</b> (ohne Parameter) Satelliten Ansicht</li>
+    <li><b>layers</b> (ohne Parameter) Kartenauswahl</li>
+    <li><b>full</b> (ohne Parameter) Fullsreen Button</li>
+    <li><b>scale</b> (ohne Parameter) Maßstab Anzeige</li>
+</ul>
+
+<h3 style="margin-bottom:.2em;">Tip eigene KML oder GPX Datei erstellen:</h3>
+Mit "My Maps" von google kann eine eigene KML Datei Erstelt werden.<br />
+Einfach "In KML exportieren" Anklicken und Speichern danach muss die Datei noch Entpackt werden.<br />
+Oder mit einem Freien Editor <a href="http://umap.openstreetmap.fr/de/" target="_blank">uMap</a> der kann KML und GPX.
+
+<h3 style="margin-bottom:.2em;">Tip Latitude und Longitude:</h3>
+Siehe <a href="http://www.openrouteservice.org" target="_blank">OpenRouteService</a>

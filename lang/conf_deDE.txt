@@ -1,0 +1,7 @@
+tmp = Die Karten kommen von OSM (Strassen) und Esri (Satellite) 
+
+
+google = Google
+info   = (volgende Bilder und/oder Karten können verwendet werden)
+sat    = Satelliten Bilder
+road   = Strassen Karten

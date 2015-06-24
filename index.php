@@ -12,6 +12,7 @@ class HomeMap extends Plugin {
         $this->setPara($value);
 
         global $CMS_CONF;
+        $this->langcms = new Language($this->PLUGIN_SELF_DIR."lang/conf_".$CMS_CONF->get("cmslanguage").".txt");
         $la = substr($CMS_CONF->get("cmslanguage"),0,2);
 
         if(!$this->para["infotext"] and $this->para["linktext"]) {
@@ -138,8 +139,7 @@ class HomeMap extends Plugin {
                     ? 'var sat'.$map.' = new L.Google("HYBRID");' 
                     : 'var sat'.$map.' = new L.layerGroup([L.esri.basemapLayer("Imagery"),L.esri.basemapLayer("ImageryTransportation",{minZoom:6}),L.esri.basemapLayer("ImageryLabels")]);'
                 : '')
-
-            .(($this->para["layers"]) ? 'map'.$map.'.addControl(new L.Control.Layers({"Karte":road'.$map.', "Satellite":sat'.$map.'}, {},{position: "bottomright"}));' : '')
+            .(($this->para["layers"]) ? 'map'.$map.'.addControl(new L.Control.Layers({"'.$this->langcms->getLanguageHtml("road").'":road'.$map.', "'.$this->langcms->getLanguageHtml("sat").'":sat'.$map.'}, {},{position: "bottomright"}));' : '')
 
             .(($this->para["full"]) ? 'L.control.fullscreen({position: "topright"}).addTo(map'.$map.');' : '')
 

@@ -33,7 +33,7 @@ class HomeMap extends Plugin {
     }
 
     private function setPara($value) {
-        $this->para = array("lat" => false,"long" => false,"kml" => false,"gpx" => false,"height" => "350px","infotext" => false,"zoom" => 10,"openrouteservice" => false,"openstreetmap" => false,"google" => false,"satellite" => false,"layers" => false,"linktext" => false,"full" => false,"openinfo" => false,"scale" => false,"icon" => false,"iconsize" => false);
+        $this->para = array("lat" => false,"long" => false,"kml" => false,"gpx" => false,"height" => "350px","width" => false,"infotext" => false,"zoom" => 10,"openrouteservice" => false,"openstreetmap" => false,"google" => false,"satellite" => false,"layers" => false,"linktext" => false,"full" => false,"openinfo" => false,"scale" => false,"icon" => false,"iconsize" => false);
 
         $this->useGoogle['sat'] = false;
         $this->useGoogle['road'] = false;
@@ -61,7 +61,7 @@ class HomeMap extends Plugin {
             } elseif($key === "google") {
                 $val = preg_replace("/[ ][ ]*/"," ",$val);
                 $this->para[$key] = $specialchars->replaceSpecialChars(str_replace(" , ",",",$val),false);
-            } elseif($key === "height") {
+            } elseif($key === "height" or $key === "width") {
                 if(ctype_digit($val))
                     $val .= "px";
                 $this->para[$key] = $val;
@@ -125,7 +125,7 @@ class HomeMap extends Plugin {
             if($this->para["gpx"])
                 $syntax->insert_in_head('<script type="text/javascript" src="'.$this->PLUGIN_SELF_URL.'GPX.min.js"></script>');
 
-            return '<div class="map_warp"><div id="map'.$map.'" class="map" style="height:'.$this->para["height"].';"></div><script type="text/javascript">/*<![CDATA[*/'.$script.'/*]]>*/</script></div>';
+            return '<div class="map_warp"><div id="map'.$map.'" class="map" style="height:'.$this->para["height"].';'.(($this->para["width"]) ? 'width:'.$this->para["width"].';' : '').'"></div><script type="text/javascript">/*<![CDATA[*/'.$script.'/*]]>*/</script></div>';
         }
         return NULL;
     }
@@ -206,7 +206,7 @@ class HomeMap extends Plugin {
 
         return array(
             // Plugin-Name
-            "<b>".$this->pluginName."</b> ".$this->lang->getLanguageValue("revision","5"),
+            "<b>".$this->pluginName."</b> ".$this->lang->getLanguageValue("revision","6"),
             // CMS-Version
             "2.0",
             // Kurzbeschreibung

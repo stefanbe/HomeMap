@@ -461,10 +461,9 @@ if(typeof window !== 'undefined' && window.L){
 
       map.on('moveend', this._updateMapAttribution, this);
 
-      if(this.options.attriWidth && !map._elmAttribution){
-console.log(this.options.attriWidth);
-        map.on('baselayerchange', this._bindAttribution, this);
-}
+      if(this.options.attriWidth && !map._elmAttribution)
+        map.on('layeradd', this._bindAttribution, this);
+
       if(typeof map.options.maxZoom == "undefined")
         map.options.maxZoom = this.options.maxZoom;
 

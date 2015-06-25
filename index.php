@@ -206,7 +206,7 @@ class HomeMap extends Plugin {
 
         return array(
             // Plugin-Name
-            "<b>".$this->pluginName."</b> ".$this->lang->getLanguageValue("revision","4"),
+            "<b>".$this->pluginName."</b> ".$this->lang->getLanguageValue("revision","5"),
             // CMS-Version
             "2.0",
             // Kurzbeschreibung

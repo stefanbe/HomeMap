@@ -483,7 +483,7 @@ if(typeof window !== 'undefined' && window.L){
 
       if(this.options.attriWidth && map._elmAttribution){
         L.DomEvent.off(map._elmAttribution,'click',this._eventAttribution,this);
-        map.off('baselayerchange', this._bindAttribution, this);
+        map.off('layeradd', this._bindAttribution, this);
         map._elmAttribution = false;
       }
     },

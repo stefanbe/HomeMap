@@ -1,4 +1,4 @@
-info     = Es werden die Karten von OSM (Strassen) und Esri (Satellite) Benutzt. Für Google können sie hier einfach Ausgewält werden.
+info     = Verwendet wird Kartenmaterial von OSM (Strassen) und Esri (Satellite), zur Nutzung von Google-Karten hier an-/abwählen.
 sat      = Satellite
 road     = Strassen
 revision = Revision: {PARAM1}

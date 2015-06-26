@@ -52,8 +52,6 @@ L.Google = L.Class.extend({
 		//20px instead of 1em to avoid a slight overlap with google's attribution
 //		map._controlCorners.bottomright.style.marginBottom = '20px';
 
-        map.attributionControl._container.innerHTML += "&nbsp; ";
-
         var that = this;
         this.elmAttribute = [];
         var eventFindAttri = google.maps.event.addListener(this._google, 'tilesloaded', function() {
@@ -68,6 +66,11 @@ L.Google = L.Class.extend({
         this._update();
 	},
 	onRemove: function(map) {
+        for(var i = 1; i < map.attributionControl._container.childNodes.length; i++) { 
+            map.attributionControl._container.removeChild(map.attributionControl._container.childNodes[i]);
+            i--;
+        }
+        this.elmAttribute = [];
 		map._container.removeChild(this._container);
 
 		map.off('viewreset', this._resetCallback, this);
@@ -96,24 +99,31 @@ L.Google = L.Class.extend({
 	},
     _findAttribut: function() {
         var elm = document.getElementById(this._container.id).firstChild;
+        var m = false;
+
         for(var i = 2; i < elm.childNodes.length; i++) {
-            if(/gmnoprint|gm-style-cc/.test(elm.childNodes[i].className)) {
-                if(elm.childNodes[i].className == "gmnoprint") {
-                    this.elmAttribut = elm.childNodes[i];
-                    elm.childNodes[i].firstChild.firstChild.style.display = "none";
-                } else
-                    elm.childNodes[i].firstChild.style.display = "none";
-                elm.childNodes[i].style.position = "";
-                elm.childNodes[i].style.display = "inline-block";
+            if(/gmnoprint|gm-style-cc|^$/.test(elm.childNodes[i].className))
                 this.elmAttribute.push(elm.childNodes[i]);
-                this._map.attributionControl._container.appendChild(elm.childNodes[i]);
-                if(typeof elm.childNodes[i] == "object" && !elm.childNodes[i].className) {
-                    this.popupAttribut = elm.childNodes[i];
-                    this._map._controlContainer.appendChild(this.popupAttribut);
-                }
-                i--;
+        }
+
+        for(var i = 0; i < this.elmAttribute.length; i++) {
+            if(/gmnoprint|gm-style-cc/.test(this.elmAttribute[i].className)) {
+                if(this.elmAttribute[i].className == "gmnoprint") {
+                    this.elmAttribut = this.elmAttribute[i];
+                    this.elmAttribute[i].firstChild.firstChild.style.display = "none";
+                } else if(/gm-style-cc/.test(this.elmAttribute[i].className))
+                    this.elmAttribute[i].firstChild.style.display = "none";
+                this.elmAttribute[i].style.position = "";
+                this.elmAttribute[i].style.display = "inline-block";
+                this._map.attributionControl._container.appendChild(this.elmAttribute[i]);
+            } else if(/^$/.test(this.elmAttribute[i].className)) {
+                m = i;
+                this.popupAttribut = this.elmAttribute[i];
+                this._map._controlContainer.appendChild(this.popupAttribut);
             }
         }
+        if(m !== false)
+            this.elmAttribute.splice(m, 1);
 //        var that = this;
 //        setTimeout(function(){that._resizeAttribut();},500)
     },

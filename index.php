@@ -115,7 +115,7 @@ class HomeMap extends Plugin {
                 $syntax->insert_in_head('<script type="text/javascript" src="'.$this->PLUGIN_SELF_URL.'esri-leaflet-basemaps.js"></script>');
             }
             if($this->useGoogle['road'] or ($this->useGoogle['sat'] and ($this->para["layers"] or $this->para["satellite"]))) {
-                $syntax->insert_in_head('<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;signed_in=false&amp;language='.$la.'&amp;sensor=false"></script>');
+                $syntax->insert_in_head('<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3&amp;signed_in=false&amp;language='.$la.'&amp;sensor=false"></script>');
                 $syntax->insert_in_head('<script type="text/javascript" src="'.$this->PLUGIN_SELF_URL.'Google.min.js"></script>');
             }
 
@@ -145,7 +145,10 @@ class HomeMap extends Plugin {
 
             .(($this->para["scale"]) ? 'L.control.scale({imperial:false}).addTo(map'.$map.');' : '')
 
-            .'map'.$map.'.addLayer('.(($this->para["satellite"]) ? 'sat'.$map : 'road'.$map).');';
+            .'map'.$map.'.addLayer('.(($this->para["satellite"]) ? 'sat'.$map : 'road'.$map).');'
+            .(($this->useGoogle['road'] or $this->useGoogle['sat'])
+                ? 'L.polyline([[0,0],]).addTo(map'.$map.');'
+                : '');
     }
 
     private function getLatLong($map) {
@@ -206,7 +209,7 @@ class HomeMap extends Plugin {
 
         return array(
             // Plugin-Name
-            "<b>".$this->pluginName."</b> ".$this->lang->getLanguageValue("revision","6"),
+            "<b>".$this->pluginName."</b> ".$this->lang->getLanguageValue("revision","10"),
             // CMS-Version
             "2.0",
             // Kurzbeschreibung
